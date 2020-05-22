@@ -16,7 +16,12 @@ final class ServiceLayer {
     static let shared = ServiceLayer()
 
     // MARK: - Private Properties
+    
+    private let cache = MD5(
+        publicKey: EndpointConstants.publicKey,
+        privateKey: EndpointConstants.privateKey,
+        date: Date())
 
-    private lazy var apiClient = ApiClient(baseUrl: "https://gateway.marvel.com/")
+    private lazy var apiClient = ApiClient(baseUrlString: "https://gateway.marvel.com/", cache: cache)
     private(set) lazy var networkService = NetworkService(apiClient: apiClient)
 }
